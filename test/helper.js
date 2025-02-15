@@ -1,6 +1,7 @@
 const sinon = require('sinon');
 const EE = require('events').EventEmitter;
-const dgram = require('dgram');
+const dgram = require('node:dgram');
+const os = require('node:os');
 
 beforeEach(function () {
   this.sinon = sinon.sandbox.create();
