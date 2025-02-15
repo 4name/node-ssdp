@@ -1,30 +1,30 @@
-require('../helper')
-var moduleVersion = require('../../package.json').version
+require('../helper');
+const moduleVersion = require('../../package.json').version;
 
-var expect = require('chai').expect
-var assert = require('assert')
+const expect = require('chai').expect;
+const assert = require('assert');
 
-let Client
+let Client;
 
 if (process.env.SSDP_COV) {
-  Client = require("../../lib-cov/client")
+  Client = require('../../lib-cov/client');
 } else {
-  Client = require("../../lib/client")
+  Client = require('../../lib/client');
 }
 
 describe('Client', function () {
-  context('start', function() {
-    var client;
-    beforeEach(function() {
-      client = new Client()
-    })
+  context('start', function () {
+    let client;
+    beforeEach(function () {
+      client = new Client();
+    });
 
-    afterEach(function() {
+    afterEach(function () {
       client.stop();
-    })
+    });
 
     it('takes callback', function (done) {
-      client.start(function() {
+      client.start(function () {
         assert(true);
         done();
       });
@@ -33,24 +33,23 @@ describe('Client', function () {
     it('returs a promise', function (done) {
       client.start().then(function () {
         assert(true);
-        done()
+        done();
       });
     });
   });
 
-
   context('when receiving a reply to M-SEARCH', function () {
-    var client;
-    beforeEach(function() {
-      client = new Client()
-    })
+    let client;
+    beforeEach(function () {
+      client = new Client();
+    });
 
-    afterEach(function() {
-      client.stop()
-    })
+    afterEach(function () {
+      client.stop();
+    });
 
     it('emit a parsed object', function (done) {
-      var response = [
+      const response = [
         'HTTP/1.1 200 OK',
         'ST: uuid:f40c2981-7329-40b7-8b04-27f187aecfb5',
         'USN: uuid:f40c2981-7329-40b7-8b04-27f187aecfb5',
@@ -59,36 +58,36 @@ describe('Client', function () {
         'DATE: Fri, 30 May 2014 15:07:26 GMT',
         'SERVER: node.js/0.10.28 UPnP/1.1 node-ssdp/' + moduleVersion,
         'EXT: ' // note the space
-      ]
+      ];
 
       client.on('response', function (headers, code, rinfo) {
-        expect(code).to.equal(200)
+        expect(code).to.equal(200);
 
-        var expected = {
-          'ST': 'uuid:f40c2981-7329-40b7-8b04-27f187aecfb5',
-          'USN': 'uuid:f40c2981-7329-40b7-8b04-27f187aecfb5',
-          'LOCATION': 'http://0.0.0.0:10000/upnp/desc.html',
+        const expected = {
+          ST: 'uuid:f40c2981-7329-40b7-8b04-27f187aecfb5',
+          USN: 'uuid:f40c2981-7329-40b7-8b04-27f187aecfb5',
+          LOCATION: 'http://0.0.0.0:10000/upnp/desc.html',
           'CACHE-CONTROL': 'max-age=1800',
-          //'DATE': 'Fri, 30 May 2014 15:07:26 GMT',
-          'SERVER': 'node.js/0.10.28 UPnP/1.1 node-ssdp/' + moduleVersion,
-          'EXT': ''
-        }
+          // 'DATE': 'Fri, 30 May 2014 15:07:26 GMT',
+          SERVER: 'node.js/0.10.28 UPnP/1.1 node-ssdp/' + moduleVersion,
+          EXT: ''
+        };
 
-        var date = headers.DATE
+        const date = headers.DATE;
 
-        delete headers.DATE
+        delete headers.DATE;
 
-        expect(expected).to.deep.equal(headers)
-        expect(date).to.match(/\w+, \d+ \w+ \d+ [\d:]+ GMT/)
+        expect(expected).to.deep.equal(headers);
+        expect(date).to.match(/\w+, \d+ \w+ \d+ [\d:]+ GMT/);
 
-        done()
-      })
+        done();
+      });
 
-      client.start()
+      client.start();
 
-      var iface = Object.keys(client.sockets)[0]
+      const iface = Object.keys(client.sockets)[0];
 
-      client.sockets[iface].emit('message', Buffer(response.join('\r\n')))
-    })
-  })
-})
+      client.sockets[iface].emit('message', Buffer(response.join('\r\n')));
+    });
+  });
+});
