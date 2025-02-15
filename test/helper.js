@@ -1,18 +1,18 @@
-var sinon = require('sinon')
-  , EE = require('events').EventEmitter
-  , dgram = require('dgram')
+const sinon = require('sinon')
+const EE = require('events').EventEmitter
+const dgram = require('dgram')
 
-beforeEach(function() {
-  this.sinon = sinon.createSandbox();
+beforeEach(function () {
+  this.sinon = sinon.createSandbox()
   this.sinon.stub(dgram, 'createSocket').callsFake(getFakeSocket.bind(this))
-});
+})
 
-afterEach(function(){
-  this.sinon.restore();
-});
+afterEach(function () {
+  this.sinon.restore()
+})
 
-function getFakeSocket() {
-  var s = new EE
+function getFakeSocket () {
+  const s = new EE()
 
   s.type = 'udp4'
 
@@ -27,10 +27,10 @@ function getFakeSocket() {
   s.setMulticastLoopback = this.sinon.stub()
   s.unref = this.sinon.stub()
 
-  s.bind = function (/*port, addr, cb*/) {
-    var cb = [].slice.call(arguments).pop()
+  s.bind = function (/* port, addr, cb */) {
+    const cb = [].slice.call(arguments).pop()
 
-    if (typeof cb == 'function') cb()
+    if (typeof cb === 'function') cb()
   }
 
   this.sinon.spy(s, 'bind')
