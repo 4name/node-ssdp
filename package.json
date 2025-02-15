@@ -10,7 +10,7 @@
     "chromecast",
     "iot"
   ],
-  "version": "4.0.1",
+  "version": "4.0.2",
   "author": "Ilya Shaisultanov <ilya.shaisultanov@gmail.com>",
   "dependencies": {
     "async": "^3.2.6",
@@ -35,11 +35,14 @@
     "istanbul": "^0.4.5",
     "mocha": "^11.7.1",
     "mocha-istanbul": "^0.3.0",
+    "standard": "^17.1.2",
     "sinon": "^21.0.0"
   },
   "scripts": {
     "test": "mocha --exit --recursive test",
-    "coverage": "istanbul cover node_modules/.bin/_mocha -- test/lib --recursive"
+    "coverage": "istanbul cover node_modules/.bin/_mocha -- test/lib --recursive",
+    "linter": "standard --env mocha",
+    "linter:fix": "standard --fix --env mocha"
   },
   "homepage": "https://github.com/diversario/node-ssdp#readme",
   "directories": {
