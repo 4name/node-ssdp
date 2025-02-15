@@ -1,5 +1,5 @@
-const ssdp = require('../index').Client;
-const client = new ssdp({});
+const { Client } = require('../index');
+const client = new Client({});
 
 client.on('notify', function () {
   // console.log('Got a notification.')

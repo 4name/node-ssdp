@@ -1,5 +1,5 @@
-const SSDP = require('../index').Server;
-const server = new SSDP({
+const { Server } = require('../index');
+const server = new Server({
   location: {
     port: 8080,
     path: '/ssdp/device-desc.xml'

@@ -38,17 +38,17 @@ describe('Server', function () {
       const errorHandlers = socket.listeners('error');
 
       assert.equal(errorHandlers.length, 1);
-      assert.equal(errorHandlers[0].name, 'onSocketError');
+      assert.equal(errorHandlers[0].name, 'bound onSocketError');
 
       const messageHandlers = socket.listeners('message');
 
       assert.equal(messageHandlers.length, 1);
-      assert.equal(messageHandlers[0].name, 'onSocketMessage');
+      assert.equal(messageHandlers[0].name, 'bound onSocketMessage');
 
       const listeningHandlers = socket.listeners('listening');
 
       assert.equal(listeningHandlers.length, 1);
-      assert.equal(listeningHandlers[0].name, 'onSocketListening');
+      assert.equal(listeningHandlers[0].name, 'bound onSocketListening');
     });
 
     it('binds sockets without interface by default', function () {
