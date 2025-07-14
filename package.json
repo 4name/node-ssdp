@@ -15,7 +15,7 @@
   "dependencies": {
     "async": "^3.2.6",
     "bluebird": "^3.7.2",
-    "debug": "^4.4.0",
+    "debug": "^4.4.1",
     "extend": "^3.0.2",
     "ip": "^2.0.1"
   },
@@ -28,14 +28,14 @@
   },
   "main": "./index",
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=18.18.0"
   },
   "devDependencies": {
-    "chai": "^4.1.2",
+    "chai": "^4.5.0",
     "istanbul": "^0.4.5",
-    "mocha": "^11.1.0",
+    "mocha": "^11.7.1",
     "mocha-istanbul": "^0.3.0",
-    "sinon": "^4.5.0"
+    "sinon": "^21.0.0"
   },
   "scripts": {
     "test": "mocha --exit --recursive test",
