@@ -1,18 +1,18 @@
-var ssdp = require('../index').Client
-  , client = new ssdp({})
+const ssdp = require('../index').Client
+const client = new ssdp({})
 
 client.on('notify', function () {
-  //console.log('Got a notification.')
+  // console.log('Got a notification.')
 })
 
-client.on('response', function inResponse(headers, code, rinfo) {
+client.on('response', function inResponse (headers, code, rinfo) {
   console.log('Got a response to an m-search:\n%d\n%s\n%s', code, JSON.stringify(headers, null, '  '), JSON.stringify(rinfo, null, '  '))
 })
 
 client.search('urn:schemas-upnp-org:service:ContentDirectory:1')
 
 // Or maybe if you want to scour for everything after 5 seconds
-setInterval(function() {
+setInterval(function () {
   client.search('ssdp:all')
 }, 5000)
 
